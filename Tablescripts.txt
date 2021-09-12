@@ -1,0 +1,161 @@
+  drop schema userDB;
+ 
+ create schema userDB;
+ 
+ use userDB;
+
+ 
+ create table buyer(
+  buyer_id varchar(10),
+  name varchar(50),
+  email varchar(50),
+  phone_number bigint,
+  password varchar(50),
+  is_privileged char,
+  rewardpoints bigint,
+  is_active char
+);
+
+
+
+  insert into buyer values('B101','John','john@xyz.com',9531223341,'infy@1','y',10,'y');
+ 
+ insert into buyer values('B102','Jacob','jacob@xyz.com',9531223342,'infy@2','n',0,'n');
+
+  insert into buyer values('B103','Rahul','rahul@xyz.com',9531223343,'infy@3','y',15,'y');
+  
+insert into buyer values('B104','Ajay','ajay@xyz.com',9531223344,'infy@4','n',0,'n');
+ 
+ insert into buyer values('B105','Arjun','arjun@xyz.com',9531223345,'infy@5','y',20,'y');
+
+ 
+ create table seller(
+  seller_id varchar(10),
+  name varchar(50),
+  email varchar(50),
+  phone_num bigint,
+  password varchar(50),
+  is_active char);
+
+
+  insert into seller values('S101','Virat','virat@xyz.com',9532223341,'infy@121','y');
+  
+insert into seller values('S102','Vijay','vijay@xyz.com',9532223342,'infy@122','n');
+ 
+ insert into seller values('S103','Vikram','vikram@xyz.com',9532223343,'infy@123','y');
+ 
+ insert into seller values('S104','Ameer','ameer@xyz.com',9532223344,'infy@124','n');
+  
+insert into seller values('S105','George','george@xyz.com',9532223345,'infy@125','y');
+
+  
+create table wishlist(
+  buyer_id varchar(10),
+  prod_id varchar(10),
+  primary key(buyer_id,prod_id));
+
+  
+
+  insert into wishlist values('B101','P101');
+ 
+ insert into wishlist values('B102','P102');
+  
+insert into wishlist values('B103','P103');
+  
+insert into wishlist values('B104','P104');
+ 
+ insert into wishlist values('B105','P105');
+
+  
+create table cart(
+  buyer_id varchar(10),
+  prod_id varchar(10),
+  quantity int,
+  primary key(buyer_id,prod_id));
+
+  
+insert into cart values('B101','P101',1);
+ 
+ insert into cart values('B102','P102',2);
+  
+insert into cart values('B103','P103',3);
+
+  insert into cart values('B104','P104',2);
+  
+insert into cart values('B105','P105',1);
+
+
+
+drop schema productDB;
+
+create schema productDB;
+
+use product;
+
+
+create table product(
+prod_id varchar(10),
+product_name varchar(50),
+price integer,
+stock varchar(100),
+description varchar(150),
+image longblob,
+seller_id varchar(10),
+category varchar(50),
+subcategory varchar(50),
+productrating float
+);
+
+
+
+insert into product values('P101','Samsung_Galaxy_M31',14999,'IN_STOCK','Sizename:(6GB RAM,128GB),Colour:(Ocean Blue)',load_file('C:/Users/Computer World/Documents/FA4/images/Samsung m31_.jpg'),'S101','Electronics','Mobile',4.4);
+insert into product values('P102','Couch',13999,'IN_STOCK','The recliner chair is well packed and delivered and the chair is good value for money',load_file('C:/Users/Computer World/Documents/FA4/images/Couch.jpg'),'S105','Home & Kitchen','Furniture',4);
+insert into product values('P103','GAINX',549,'IN_STOCK','GAINX Retro Rectangular Aviator Sunglasses Premium Glass Lens Flat Metal Sun Glasses Men Women',load_file('C:/Users/Computer World/Documents/FA4/images/sunglasses.jpg'),'S103','Accessories','Sunglasses',3.8);
+insert into product values('P104','ANNI_DESIGNER',599,'OUT_OFF_STOCK','ANNI DESIGNER Women Pure Cotton Flower Print Kurta with Palazzo',load_file('C:/Users/Computer World/Documents/FA4/images/clothing.jpg'),'S102','Clothing','Ethnic Wear',4.8);
+insert into product values('P105','WOW_Apple_Cider_Vinegar',475,'IN_STOCK','WOW Organic Raw Apple Cider Vinegar-with strand of mother-Not from concentrate-750mL',load_file('C:/Users/Computer World/Documents/FA4/images/WOW_Apple_Cider_Vinegar.jpg'),'S104','Health','Diet & Nutrition',3.5);
+
+
+create table subscribedproduct(
+buyer_id varchar(10),
+prod_id varchar(10),
+quantity integer,
+primary key(buyer_id,prod_id)
+);
+
+insert into subscribedproduct values('B101','P105',2);
+insert into subscribedproduct values('B102','P103',5);
+insert into subscribedproduct values('B103','P101',1);
+insert into subscribedproduct values('B104','P104',6);
+insert into subscribedproduct values('B105','P102',3);
+
+drop schema orderDB;
+create schema orderDB;
+use orderDB;
+
+create table Orders(
+Order_id VARCHAR(15),
+Buyer_id VARCHAR(15),
+Amount INT, 
+OrderDate DATE ,
+Address VARCHAR(150),
+Status VARCHAR(100));
+
+
+Insert into Orders values('O101','B101',2000,'2020-11-15','Mysore','delivered');
+Insert into Orders values('O102','B102',1500,'2020-05-12','Bangalore','shipped');
+Insert into Orders values('O103','B103',7000,'2020-12-30','Kannur','packed');
+Insert into Orders values('O104','B104',9000,'2020-04-18','Nagpur','shipped');
+Insert into Orders values('O105','B105',8000,'2020-10-05','Kodagu','delivered');
+
+create table Products(
+Buyer_id VARCHAR(15),
+Prod_id VARCHAR(15),
+Seller_id VARCHAR(15),
+Quantity INT,
+PRIMARY KEY(Buyer_id,Prod_id));
+
+Insert into Products values('B101','P101','S101',1);
+Insert into Products values('B102','P102','S102',5);
+Insert into Products VALUES('B103','P103','S103',3);
+Insert into Products values('B104','P104','S104',2);
+Insert into Products values('B105','P105','S105',6);
